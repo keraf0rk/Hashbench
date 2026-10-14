@@ -1,0 +1,45 @@
+==================================================
+ ПОДГОТОВКА
+==================================================
+--- hashes.txt (SHA-256) ---
+b188cb9b0cf793dc78cb8336772bf3f36df156a243badf94ce6f9e736dca76bc
+389137315eeba714d066ddbdb64e0418d6f14ed2ce6639ded3773c29ba60161d
+[OK] SHA-256 Qwerty12! совпал с журналом
+--- hashesC.txt (sha256crypt) ---
+$5$xyz$DmIBRKf.qMEljFGT8FQrqpt6Mra4c5wFwTn9NCPtUw0
+$5$xyz$/wEC.Xgv1YSgEBCi.tkRwQ1gHu85bHqsiKkioKTby0D
+[OK] sha256crypt совпал с журналом
+Строк в словаре:  14344393
+
+==================================================
+ ЭКСПЕРИМЕНТ 1: реальная атака vs бенчмарк
+==================================================
+
+>>> SHA-256 (1400) — РЕАЛЬНАЯ атака маской (?a x8, 30 сек, грузит GPU на полную)
+Speed.#02........:   543.3 MH/s (11.83ms) @ Accel:128 Loops:1024 Thr:256 Vec:1
+Speed.#02........:   541.1 MH/s (11.83ms) @ Accel:128 Loops:1024 Thr:256 Vec:1
+Speed.#02........:   542.2 MH/s (11.83ms) @ Accel:128 Loops:1024 Thr:256 Vec:1
+Speed.#02........:   541.7 MH/s (11.83ms) @ Accel:128 Loops:1024 Thr:256 Vec:1
+>>> SHA-256 (1400) — БЕНЧМАРК
+Speed.#02........:   668.3 MH/s (40.91ms) @ Accel:544 Loops:1024 Thr:256 Vec:1
+
+>>> sha256crypt (7400) — РЕАЛЬНАЯ атака словарём
+Speed.#02........:    50750 H/s (18.55ms) @ Accel:96 Loops:1000 Thr:256 Vec:1
+Recovered........: 0/2 (0.00%) Digests (total), 0/2 (0.00%) Digests (new)
+Speed.#02........:    48289 H/s (19.36ms) @ Accel:96 Loops:1000 Thr:256 Vec:1
+Recovered........: 0/2 (0.00%) Digests (total), 0/2 (0.00%) Digests (new)
+Speed.#02........:    46658 H/s (20.12ms) @ Accel:96 Loops:1000 Thr:256 Vec:1
+Recovered........: 0/2 (0.00%) Digests (total), 0/2 (0.00%) Digests (new)
+>>> sha256crypt (7400) — БЕНЧМАРК
+Speed.#02........:    62943 H/s (39.29ms) @ Accel:256 Loops:1000 Thr:256 Vec:1
+
+==================================================
+ ЭКСПЕРИМЕНТ 2: стабильность бенчмарка (5 прогонов 1400)
+==================================================
+run 1: Speed.#02........:   668.0 MH/s (40.91ms) @ Accel:544 Loops:1024 Thr:256 Vec:1
+run 2: Speed.#02........:   668.1 MH/s (40.91ms) @ Accel:544 Loops:1024 Thr:256 Vec:1
+run 3: Speed.#02........:   668.2 MH/s (40.91ms) @ Accel:544 Loops:1024 Thr:256 Vec:1
+run 4: Speed.#02........:   668.2 MH/s (40.91ms) @ Accel:544 Loops:1024 Thr:256 Vec:1
+run 5: Speed.#02........:   668.2 MH/s (40.92ms) @ Accel:544 Loops:1024 Thr:256 Vec:1
+
+Готово. Сравни Speed реальной атаки с бенчмарком.
