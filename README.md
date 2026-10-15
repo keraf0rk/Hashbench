@@ -12,7 +12,6 @@
 <p align="center">
   <img alt="platforms" src="https://img.shields.io/badge/platforms-macOS%20%7C%20Linux%20%7C%20Windows-blue">
   <img alt="tools" src="https://img.shields.io/badge/tools-hashcat%20%7C%20JtR-green">
-  <img alt="license" src="https://img.shields.io/badge/license-MIT-lightgrey">
 </p>
 
 > ⚠️ **Legal audit only.** This bench hashes known passwords locally. Running these tools against hashes you don't own, without written permission, is illegal everywhere. For learning, contracted pentests, CTF and auditing your own systems.
