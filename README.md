@@ -12,6 +12,7 @@
 <p align="center">
   <img alt="platforms" src="https://img.shields.io/badge/platforms-macOS%20%7C%20Linux%20%7C%20Windows-blue">
   <img alt="tools" src="https://img.shields.io/badge/tools-hashcat%20%7C%20JtR-green">
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-lightgrey">
 </p>
 
 > ⚠️ **Legal audit only.** This bench hashes known passwords locally. Running these tools against hashes you don't own, without written permission, is illegal everywhere. For learning, contracted pentests, CTF and auditing your own systems.
@@ -55,9 +56,11 @@ hashbench/
 ├── docs/
 │   ├── METHODOLOGY.md            # how both experiments work
 │   ├── ALGORITHMS.md             # -m modes & strength classes
-│   └── RENTAL.md                 # GPU rental + rainbow tables
+│   ├── RENTAL.md                 # GPU rental + rainbow tables
+│   └── TROUBLESHOOTING.md        # run gotchas (mostly Windows)
 └── results/
-    ├── m4-apple-silicon.md       # my reference numbers (for comparison)
+    ├── m4-apple-silicon.md       # Apple M4 numbers
+    ├── rtx3060-windows.md        # RTX 3060 numbers (Windows)
     └── result.txt                # a run lands here
 ```
 
@@ -91,9 +94,11 @@ bash scripts/start.sh 2>&1 | tee results/result.txt
 <summary>🪟 Windows 10/11</summary>
 
 ```powershell
-# 1. Grab the hashcat release from https://hashcat.net/hashcat/ , unzip,
-#    add the hashcat.exe folder to PATH (or set $Hashcat in the script).
-# 2. Install Git for Windows — it ships openssl.exe.
+# 1. Install deps with Scoop (https://scoop.sh):
+#      scoop install hashcat
+#      scoop install openssl       # or openssl from git: scoop install git
+# 2. If auto-detect misses it, set $Hashcat to the real hashcat.exe.
+#    Gotchas (encoding, PATH, hashcat working dir): docs/TROUBLESHOOTING.md
 
 git clone <repo-url> hashbench; cd hashbench
 powershell -ExecutionPolicy Bypass -File scripts\start.ps1 *> results\result.txt
@@ -104,7 +109,7 @@ A run takes ~2–3 min (two 30-second measurements + benchmarks + 5 stability ru
 
 ## 📊 Test — Apple M4 (MacBook Air)
 
-Full data in [`results/m4-apple-silicon.md`](results/m4-apple-silicon.md).
+Full data: [`results/m4-apple-silicon.md`](results/m4-apple-silicon.md) · second device: [`results/rtx3060-windows.md`](results/rtx3060-windows.md).
 
 **Hashrate by algorithm** (hashcat, OpenCL):
 
@@ -188,9 +193,11 @@ hashbench/
 ├── docs/
 │   ├── METHODOLOGY.md            # как устроены оба эксперимента
 │   ├── ALGORITHMS.md             # режимы -m и классы стойкости
-│   └── RENTAL.md                 # аренда GPU + радужные таблицы
+│   ├── RENTAL.md                 # аренда GPU + радужные таблицы
+│   └── TROUBLESHOOTING.md        # грабли запуска (в основном Windows)
 └── results/
-    ├── m4-apple-silicon.md       # мои эталонные цифры (для сравнения)
+    ├── m4-apple-silicon.md       # цифры Apple M4
+    ├── rtx3060-windows.md        # цифры RTX 3060 (Windows)
     └── result.txt                # сюда пишется прогон
 ```
 
@@ -224,9 +231,11 @@ bash scripts/start.sh 2>&1 | tee results/result.txt
 <summary>🪟 Windows 10/11</summary>
 
 ```powershell
-# 1. Скачай релиз hashcat с https://hashcat.net/hashcat/ , распакуй,
-#    добавь папку с hashcat.exe в PATH (или впиши путь в $Hashcat).
-# 2. Поставь Git for Windows — он принесёт openssl.exe.
+# 1. Ставим зависимости через Scoop (https://scoop.sh):
+#      scoop install hashcat
+#      scoop install openssl       # либо openssl из git: scoop install git
+# 2. Если автодетект промахнулся — впиши путь к hashcat.exe в $Hashcat.
+#    Грабли (кодировка, PATH, рабочая папка hashcat): docs\TROUBLESHOOTING.md
 
 git clone <repo-url> hashbench; cd hashbench
 powershell -ExecutionPolicy Bypass -File scripts\start.ps1 *> results\result.txt
@@ -237,7 +246,7 @@ powershell -ExecutionPolicy Bypass -File scripts\start.ps1 *> results\result.txt
 
 ## 📊 Тест — Apple M4 (MacBook Air)
 
-Полные данные — в [`results/m4-apple-silicon.md`](results/m4-apple-silicon.md).
+Полные данные: [`results/m4-apple-silicon.md`](results/m4-apple-silicon.md) · второе железо: [`results/rtx3060-windows.md`](results/rtx3060-windows.md).
 
 **Хешрейт по алгоритмам** (hashcat, OpenCL):
 
